@@ -4,7 +4,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
     name = "jinzhao_attest",
-    commit = "d44580382b8d7f37f251eb32371d13d2e0fcb7e2",
+    commit = "98e2128ef0c3893a85895be514eff6aca9bb3057",
     init_submodules = True,
     recursive_init_submodules = True,
     remote = "https://github.com/secretflow/jinzhao-attest.git",

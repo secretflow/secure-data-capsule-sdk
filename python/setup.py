@@ -54,7 +54,7 @@ class BuildBazelExtension(build_ext.build_ext):
 
 setuptools.setup(
     name="sdc-sdk",
-    version="0.0.3",
+    version="0.1.0b0",
     author="secretflow",
     author_email="secretflow-contact@service.alipay.com",
     description="Secure Data Capsule SDK for python",
@@ -73,8 +73,8 @@ setuptools.setup(
     cmdclass=dict(build_ext=BuildBazelExtension),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: Business License",
-        "Operating System :: OS Independent",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: POSIX :: Linux",
     ],
     include_package_data=True,
 )

@@ -14,7 +14,6 @@
 
 import base64
 import json
-import pickle
 import secrets
 import uuid
 from dataclasses import dataclass

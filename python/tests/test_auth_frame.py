@@ -30,7 +30,7 @@ def foo():
 
 def pick_unused_port():
     sock = socket.socket()
-    sock.bind(("0.0.0.0", 0))
+    sock.bind(("127.0.0.1", 0))
     return sock.getsockname()[1]
 
 
