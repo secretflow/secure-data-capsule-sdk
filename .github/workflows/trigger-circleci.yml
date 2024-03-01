@@ -21,8 +21,8 @@ jobs:
   trigger-circleci:
     runs-on: ubuntu-latest
     steps:
-      - name: secretflow-apis-deploy
-        id: secretflow-apis-deploy
+      - name: secretflow-sdc-sdk-deploy
+        id: secretflow-sdc-sdk-deploy
         uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0.5
         env:
           CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
