@@ -76,5 +76,8 @@ setuptools.setup(
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: POSIX :: Linux",
     ],
+    options={
+        "bdist_wheel": {"plat_name": "manylinux2014_x86_64"},
+    },
     include_package_data=True,
 )

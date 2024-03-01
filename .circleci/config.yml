@@ -34,7 +34,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: registry.hub.docker.com/secretflow/ubuntu-base-ci:0.4
+      - image: secretflow/trustflow-ci-ubuntu20.04:0.1.0b
     resource_class: large
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
@@ -66,7 +66,7 @@ jobs:
 
   linux_publish:
     docker:
-      - image: registry.hub.docker.com/secretflow/release-ci:0.7
+      - image: secretflow/trustflow-ci-ubuntu20.04:0.1.0b
     resource_class: large
     parameters:
       python_ver:
@@ -77,18 +77,14 @@ jobs:
       - run:
           name: "build package and publish"
           command: |
+            source /root/miniconda3/etc/profile.d/conda.sh
             conda create -n build python=<< parameters.python_ver >> -y
             conda activate build
             cd python
-            python3 -m pip install twine auditwheel patchelf
-
+            python3 -m pip install twine 
             python3 setup.py bdist_wheel
-            
             ls dist/*.whl
-            auditwheel repair dist/*.whl --plat manylinux2014_x86_64
-            ls wheelhouse/*.whl 
-            
-            python3 -m twine upload -r pypi -u __token__ -p ${PYPI_TWINE_TOKEN} wheelhouse/*.whl 
+            python3 -m twine upload -r pypi -u __token__ -p ${PYPI_TWINE_TOKEN} dist/*.whl
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -104,5 +100,4 @@ workflows:
       - linux_publish:
           matrix:
             parameters:
-              # python_ver: ["3.8", "3.9", "3.10", "3.11"]
-              python_ver: ["3.8"]
+              python_ver: ["3.8", "3.9", "3.10", "3.11"]
