@@ -41,9 +41,6 @@ jobs:
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
-      - restore_cache:
-          name: "Restore pip cache"
-          key: &pip-cache pip-{{ checksum "python/requirements.txt" }}-{{ checksum "python/dev-requirements.txt" }}
       - run:
           name: "Install python deps"
           command: |
@@ -57,10 +54,6 @@ jobs:
             python setup.py build_ext --inplace
             mkdir test-results
             pytest --junitxml=test-results/junit-report.xml
-      - save_cache:
-          key: *pip-cache
-          paths:
-            - /usr/local/lib64/python3.8/site-packages
       - store_test_results:
           path: python/test-results
 
@@ -68,9 +61,6 @@ jobs:
     docker:
       - image: secretflow/trustflow-ci-ubuntu20.04:0.1.0b
     resource_class: large
-    parameters:
-      python_ver:
-        type: string
     shell: /bin/bash --login -eo pipefail
     steps:
       - checkout
@@ -78,7 +68,7 @@ jobs:
           name: "build package and publish"
           command: |
             source /root/miniconda3/etc/profile.d/conda.sh
-            conda create -n build python=<< parameters.python_ver >> -y
+            conda create -n build python=3.10 -y
             conda activate build
             cd python
             python3 -m pip install twine 
@@ -97,7 +87,4 @@ workflows:
   publish:
     when: << pipeline.parameters.GHA_Action >>
     jobs:
-      - linux_publish:
-          matrix:
-            parameters:
-              python_ver: ["3.8", "3.9", "3.10", "3.11"]
+      - linux_publish
