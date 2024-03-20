@@ -54,7 +54,7 @@ class BuildBazelExtension(build_ext.build_ext):
 
 setuptools.setup(
     name="sdc-sdk",
-    version="0.1.0b0",
+    version="0.2.0.dev20240320",
     author="secretflow",
     author_email="secretflow-contact@service.alipay.com",
     description="Secure Data Capsule SDK for python",
